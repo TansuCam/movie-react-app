@@ -1,16 +1,17 @@
 import axios from 'axios';
+import env from "react-dotenv";
 
 /**
  * API key for authentication.
  * @type {string}
  */
-const API_KEY = process.env.API_KEY as string;
+const API_KEY = env.API_KEY as string;
 
 /**
  * Base URL for the API.
  * @type {string}
  */
-const BASE_URL = process.env.API_BASE_URL as string;
+const BASE_URL = env.API_BASE_URL as string;
 
 /**
  * Fetches a list of movies based on search criteria.

@@ -11,7 +11,8 @@ const initialState: MovieState = {
     search: 'Pokemon',
     year: '',
     type: 'movie',
-    page: 1
+    page: 1,
+    totalResults: 0
 };
 
 /**
@@ -74,12 +75,25 @@ const movieSlice = createSlice({
          */
         setPage: (state, action: PayloadAction<number>) => {
             state.page = action.payload;
+        },
+
+        /**
+         * Sets the total number of results in the state.
+         * This is typically used for pagination to track how many results are available
+         * based on the current search, filters, and other parameters.
+         * 
+         * @param {MovieState} state - The current state.
+         * @param {PayloadAction<number>} action - The action containing the total results count.
+         */
+        setTotalResults: (state, action: PayloadAction<number>) => {
+            state.totalResults = action.payload;
         }
+
     }
 });
 
 // Export actions to be used in components or other parts of the app
-export const { setMovies, setMovieDetails, setSearch, setYear, setType, setPage } = movieSlice.actions;
+export const { setMovies, setMovieDetails, setSearch, setYear, setType, setPage, setTotalResults } = movieSlice.actions;
 
 // Default export of the reducer to be added to the store
 export default movieSlice.reducer;

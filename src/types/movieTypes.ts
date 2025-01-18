@@ -54,4 +54,5 @@ export interface MovieState {
     year: string;
     type: string;
     page: number;
+    totalResults: number;
 }

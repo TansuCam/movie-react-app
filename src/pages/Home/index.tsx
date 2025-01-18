@@ -1,9 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react';
+import Filters from '../../components/Filter';
+import TableView from '../../components/TableView';
+import GridView from '../../components/GridView';
 
-const Home = () => {
+const Home: React.FC = () => {
+    const [viewMode, setViewMode] = useState<'grid' | 'table'>('table');
+
     return (
-        <div>Welcome Home Page!</div>
-    )
-}
+        <>
+            <Filters viewMode={viewMode} setViewMode={setViewMode} />
+            {viewMode === 'table' ? <TableView /> : <GridView />}
+        </>
+    );
+};
 
-export default Home
+export default Home;

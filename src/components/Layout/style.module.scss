@@ -1,0 +1,36 @@
+.layout {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    background-color: #001529;
+    padding: 10px 20px;
+    color: white;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.logo {
+    font-size: 24px;
+}
+
+.content {
+    background-color: #001529;
+    flex: 1;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer {
+    background-color: #001529;
+    color: white;
+    text-align: center;
+    padding: 10px;
+}
