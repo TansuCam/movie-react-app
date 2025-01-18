@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
-import { Button, Input, Select } from 'antd';
+import { Flex, Input, Select, Tooltip, Typography } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSearch, setYear, setType, setMovies, setTotalResults } from '../../redux/movieSlice';
 import styles from './style.module.scss';
 import { fetchMovies } from '../../services/movieAPI';
+import { AppstoreOutlined, UnorderedListOutlined } from '@ant-design/icons';
 
 const { Option } = Select;
 
@@ -30,8 +31,8 @@ const Filters: React.FC<FiltersProps> = ({ viewMode, setViewMode }) => {
         dispatch(setSearch(e.target.value));
     };
 
-    const handleYearChange = (value: string) => {
-        dispatch(setYear(value));
+    const handleYearChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        dispatch(setYear(e.target.value));
     };
 
     const handleTypeChange = (value: string) => {
@@ -40,42 +41,50 @@ const Filters: React.FC<FiltersProps> = ({ viewMode, setViewMode }) => {
 
     return (
         <div className={styles.filters}>
-            <Input
-                className={styles['search-input']}
-                value={search}
-                placeholder="Search for a movie..."
-                onChange={handleSearchChange}
-            />
-            <Select
-                className={styles.select}
-                defaultValue={year}
-                onChange={handleYearChange}
-            >
-                <Option value="">All Years</Option>
-            </Select>
-            <Select
-                className={styles.select}
-                defaultValue={type}
-                onChange={handleTypeChange}
-            >
-                <Option value="movie">Movies</Option>
-                <Option value="series">TV Shows</Option>
-                <Option value="episode">Episodes</Option>
-            </Select>
-            <div className="view-toggle">
-                <Button
-                    className={`view-button ${viewMode === 'table' ? 'active' : ''}`}
-                    onClick={() => setViewMode('table')}
+            <Flex vertical>
+                <Typography.Text>Movie Name</Typography.Text>
+                <Input
+                    className={styles['search-input']}
+                    value={search}
+                    placeholder="Search for a movie..."
+                    onChange={handleSearchChange}
+                />
+            </Flex>
+
+            <Flex vertical>
+                <Typography.Text>Year</Typography.Text>
+                <Input
+                    className={styles['search-input']}
+                    value={year}
+                    placeholder="Search for a movie..."
+                    onChange={handleYearChange}
+                />
+            </Flex>
+            <Flex vertical>
+                <Typography.Text>Type</Typography.Text>
+                <Select
+                    className={styles.select}
+                    defaultValue={type}
+                    onChange={handleTypeChange}
                 >
-                    Table View
-                </Button>
-                <Button
-                    className={`view-button ${viewMode === 'grid' ? 'active' : ''}`}
-                    onClick={() => setViewMode('grid')}
-                >
-                    Grid View
-                </Button>
-            </div>
+                    <Option value="movie">Movies</Option>
+                    <Option value="series">TV Shows</Option>
+                    <Option value="episode">Episodes</Option>
+                </Select>
+            </Flex>
+
+            <Tooltip title="Change view mode">
+                {viewMode === 'table' ?
+                    <UnorderedListOutlined
+                        style={{ fontSize: 22, cursor: 'pointer' }}
+                        onClick={() => setViewMode('grid')}
+                    /> :
+                    <AppstoreOutlined
+                        style={{ fontSize: 22, cursor: 'pointer' }}
+                        onClick={() => setViewMode('table')}
+                    />
+                }
+            </Tooltip>
         </div>
     );
 };

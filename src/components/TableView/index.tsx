@@ -1,17 +1,10 @@
 import React from 'react';
 import { Table } from 'antd';
 import styles from './style.module.scss';
-import { useDispatch, useSelector } from 'react-redux';
-import { setPage } from '../../redux/movieSlice';
+import { useSelector } from 'react-redux';
 
 const TableView: React.FC = () => {
-    const { movies, page, totalResults } = useSelector((state: any) => state.movie);
-
-    const dispatch = useDispatch();
-
-    const handlePaginationChange = (page: number) => {
-        dispatch(setPage(page));
-    };
+    const { movies } = useSelector((state: any) => state.movie);
 
     const columns = [
         {
@@ -31,14 +24,8 @@ const TableView: React.FC = () => {
             className={styles['table-view']}
             dataSource={movies}
             columns={columns}
-            pagination={{
-                current: page,
-                pageSize: 10,
-                total: totalResults,
-                onChange: handlePaginationChange,
-                showSizeChanger: false,
-            }}
             rowKey="imdbID"
+            pagination={false}
         />
     );
 };

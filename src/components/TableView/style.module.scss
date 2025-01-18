@@ -10,4 +10,9 @@
     .ant-table-cell {
         text-align: center;
     }
+    
+    .ant-pagination .ant-pagination-item:not(.ant-pagination-item-active):hover {
+        background-color: rgb(255 255 255 / 65%) !important;
+    }
 }
+

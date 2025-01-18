@@ -3,6 +3,9 @@ import { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import LayoutComponent from "./components/Layout";
 
+// Styles
+import "./styles.scss";
+
 // Pages
 const Home = lazy(() => import("./pages/Home"));
 
