@@ -12,7 +12,8 @@ const initialState: MovieState = {
     year: '',
     type: 'movie',
     page: 1,
-    totalResults: 0
+    totalResults: 0,
+    isLoading: false
 };
 
 /**
@@ -87,13 +88,21 @@ const movieSlice = createSlice({
          */
         setTotalResults: (state, action: PayloadAction<number>) => {
             state.totalResults = action.payload;
-        }
+        },
+
+        /**
+       * Sets the loading state to true.
+       * @param {MovieState} state - The current state.
+       */
+        setLoading: (state, action: PayloadAction<boolean>) => {
+            state.isLoading = action.payload;
+        },
 
     }
 });
 
 // Export actions to be used in components or other parts of the app
-export const { setMovies, setMovieDetails, setSearch, setYear, setType, setPage, setTotalResults } = movieSlice.actions;
+export const { setMovies, setMovieDetails, setSearch, setYear, setType, setPage, setTotalResults, setLoading } = movieSlice.actions;
 
 // Default export of the reducer to be added to the store
 export default movieSlice.reducer;

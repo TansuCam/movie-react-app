@@ -55,4 +55,5 @@ export interface MovieState {
     type: string;
     page: number;
     totalResults: number;
+    isLoading: boolean;
 }
