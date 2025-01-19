@@ -1,4 +1,4 @@
-<div align="center"> <br/> <br/> <p> movie-react-app is a simple movie application built with React JS, TypeScript, and Ant Design, <br/> which allows users to search of both movies and TV series. </p> <p> </div> <br/> <br/>
+<div align="center"> <br/> <br/> <p> Movies-app is a simple movie application built with React JS, TypeScript, and Ant Design, <br/> which allows users to search of both movies and TV series. </p> <p> </div> <br/> <br/>
 Features
 Search Movies and TV Series:
 
