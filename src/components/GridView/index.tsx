@@ -44,7 +44,7 @@ const GridView: React.FC = () => {
                 {movies?.length > 0 ? (
                     <>
                         {movies.map((film: Movie, index: number) => (
-                            <Col span={6} key={index}>
+                            <Col lg={6} sm={8} xs={12} key={index}>
                                 <Card
                                     hoverable
                                     cover={
@@ -53,7 +53,7 @@ const GridView: React.FC = () => {
                                             src={film.Poster && film.Poster.startsWith('http') ?
                                                 film.Poster :
                                                 dummyImage}
-                                            style={{ height: 400 }}
+                                            style={{ height: "40vh" }}
                                         />
                                     }
                                     onClick={() => handleRowClick(film)}

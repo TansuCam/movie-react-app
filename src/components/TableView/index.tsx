@@ -47,7 +47,7 @@ const TableView: React.FC = () => {
                     <img
                         src={text && text.startsWith('http') ? text : dummyImage}
                         alt="poster"
-                        style={{ width: 50 }}
+                        className={styles.posterImage}
                         onError={(e) => {
                             e.currentTarget.src = dummyImage;
                             e.currentTarget.alt = 'Dummy Poster';
@@ -74,6 +74,7 @@ const TableView: React.FC = () => {
                     onClick: () => handleRowClick(record),
                     style: { cursor: 'pointer' },
                 })}
+                scroll={{ x: 'max-content' }}
             />
         </Spin>
     );
