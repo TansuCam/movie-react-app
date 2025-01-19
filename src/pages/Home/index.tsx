@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Filters from '../../components/Filter';
 import TableView from '../../components/TableView';
 import GridView from '../../components/GridView';
@@ -7,8 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setPage } from '../../redux/movieSlice';
 
 const Home: React.FC = () => {
-    const [viewMode, setViewMode] = useState<'grid' | 'table'>('table');
-    const { page, totalResults } = useSelector((state: any) => state.movie);
+    const { page, totalResults, viewMode } = useSelector((state: any) => state.movie);
     const dispatch = useDispatch();
 
     const handlePaginationChange = (page: number) => {
@@ -17,7 +16,7 @@ const Home: React.FC = () => {
 
     return (
         <>
-            <Filters viewMode={viewMode} setViewMode={setViewMode} />
+            <Filters />
             {viewMode === 'table' ? <TableView /> : <GridView />}
             <Pagination
                 className='pagination'

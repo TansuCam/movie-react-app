@@ -1,38 +1,37 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { Button, Form, Input, Select, Tooltip, Typography } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSearch, setYear, setType, setMovies, setTotalResults, setLoading } from '../../redux/movieSlice';
-import styles from './style.module.scss';
+import { setSearch, setYear, setType, setMovies, setTotalResults, setLoading, setViewMode } from '../../redux/movieSlice';
 import { fetchMovies } from '../../services/movieAPI';
+import styles from './style.module.scss';
 import { AppstoreOutlined, UnorderedListOutlined } from '@ant-design/icons';
+import { debounce } from 'lodash';
 
 const { Option } = Select;
 
-interface FiltersProps {
-    viewMode: 'grid' | 'table';
-    setViewMode: (mode: 'grid' | 'table') => void;
-}
-
-const Filters: React.FC<FiltersProps> = ({ viewMode, setViewMode }) => {
+const Filters: React.FC = () => {
     const dispatch = useDispatch();
-    const { search, year, type, page } = useSelector((state: any) => state.movie);
+    const { search, year, type, page, viewMode } = useSelector((state: any) => state.movie);
 
-    const fetchInitialMovies = async () => {
+    const fetchFilteredMovies = useCallback(async () => {
         try {
-            dispatch(setLoading(true))
+            dispatch(setLoading(true));
             const data = await fetchMovies(search, year, type, page);
-            dispatch(setLoading(false))
+            dispatch(setLoading(false));
             dispatch(setMovies(data.Search));
             dispatch(setTotalResults(data.totalResults));
         } catch (error) {
-            dispatch(setLoading(false))
-            console.error("Error fetching initial movies:", error);
+            dispatch(setLoading(false));
+            console.error("Error fetching movies:", error);
         }
-    };
+    }, [search, year, type, page, dispatch]);
+
+    const debouncedFetch = useCallback(debounce(fetchFilteredMovies, 500), [fetchFilteredMovies]);
 
     useEffect(() => {
-        fetchInitialMovies();
-    }, [page]);
+        debouncedFetch();
+        return () => debouncedFetch.cancel();
+    }, [search, year, type, page, debouncedFetch]);
 
     const onFinish = async (values: any) => {
         const { search: searchValue, year: yearValue, type: typeValue } = values;
@@ -40,18 +39,12 @@ const Filters: React.FC<FiltersProps> = ({ viewMode, setViewMode }) => {
         dispatch(setSearch(searchValue));
         dispatch(setYear(yearValue));
         dispatch(setType(typeValue));
-
-        try {
-            dispatch(setLoading(true))
-            const data = await fetchMovies(searchValue, yearValue, typeValue, page);
-            dispatch(setLoading(false))
-            dispatch(setMovies(data.Search));
-            dispatch(setTotalResults(data.totalResults));
-        } catch (error) {
-            console.error("Error fetching movies:", error);
-            dispatch(setLoading(false))
-        }
     };
+
+    const changeViewMode = (mode: 'grid' | 'table') => {
+        dispatch(setViewMode(mode));
+    }
+
     return (
         <div className={styles.filters}>
             <Form
@@ -98,16 +91,17 @@ const Filters: React.FC<FiltersProps> = ({ viewMode, setViewMode }) => {
             </Form>
 
             <Tooltip title="Change view mode">
-                {viewMode === 'table' ?
+                {viewMode === 'table' ? (
                     <UnorderedListOutlined
                         style={{ fontSize: 22, cursor: 'pointer' }}
-                        onClick={() => setViewMode('grid')}
-                    /> :
+                        onClick={() => changeViewMode('grid')}
+                    />
+                ) : (
                     <AppstoreOutlined
                         style={{ fontSize: 22, cursor: 'pointer' }}
-                        onClick={() => setViewMode('table')}
+                        onClick={() => changeViewMode('table')}
                     />
-                }
+                )}
             </Tooltip>
         </div>
     );

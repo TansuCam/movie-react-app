@@ -13,7 +13,8 @@ const initialState: MovieState = {
     type: 'movie',
     page: 1,
     totalResults: 0,
-    isLoading: false
+    isLoading: false,
+    viewMode: 'table'
 };
 
 /**
@@ -40,6 +41,15 @@ const movieSlice = createSlice({
          */
         setMovieDetails: (state, action: PayloadAction<MovieDetails>) => {
             state.movieDetails = action.payload;
+        },
+
+        /**
+         * Clears the movie details from the state.
+         * @param {MovieState} state - The current state of the movie slice.
+         * @description This reducer clears the `movieDetails` field in the state by setting it to an empty object, essentially resetting the movie details.
+         */
+        clearMovieDetails: (state) => {
+            state.movieDetails = {} as MovieDetails;
         },
 
         /**
@@ -98,11 +108,31 @@ const movieSlice = createSlice({
             state.isLoading = action.payload;
         },
 
+        /**
+        * Sets the view mode (e.g., table or grid) in the state.
+        * @param {MovieState} state - The current state.
+        * @param {PayloadAction<'grid' | 'table'>} action - The action containing the view mode (e.g., 'table', 'grid').
+        */
+        setViewMode: (state, action: PayloadAction<'grid' | 'table'>) => {
+            state.viewMode = action.payload;
+        }
+
     }
 });
 
 // Export actions to be used in components or other parts of the app
-export const { setMovies, setMovieDetails, setSearch, setYear, setType, setPage, setTotalResults, setLoading } = movieSlice.actions;
+export const {
+    setMovies,
+    setMovieDetails,
+    setSearch,
+    setYear,
+    setType,
+    setPage,
+    setTotalResults,
+    setLoading,
+    clearMovieDetails,
+    setViewMode
+} = movieSlice.actions;
 
 // Default export of the reducer to be added to the store
 export default movieSlice.reducer;

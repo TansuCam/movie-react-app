@@ -30,8 +30,9 @@ const GridView: React.FC = () => {
                                             alt={film.Title}
                                             src={film.Poster && film.Poster.startsWith('http') ?
                                                 film.Poster :
-                                                dummyImage} style={{ height: 400 }
-                                                }
+                                                dummyImage}
+                                            style={{ height: 400 }
+                                            }
                                         />
                                     }
                                     onClick={() => handleRowClick(film)}

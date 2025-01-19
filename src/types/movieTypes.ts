@@ -56,4 +56,5 @@ export interface MovieState {
     page: number;
     totalResults: number;
     isLoading: boolean;
+    viewMode: 'grid' | 'table';
 }

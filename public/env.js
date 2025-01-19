@@ -1,7 +1,5 @@
 window.env = {
   "ALLUSERSPROFILE": "C:\\ProgramData",
-  "API_BASE_URL": "http://www.omdbapi.com/",
-  "API_KEY": "61a4ba7f",
   "APPDATA": "C:\\Users\\09373215\\AppData\\Roaming",
   "CHROME_CRASHPAD_PIPE_NAME": "\\\\.\\pipe\\crashpad_5772_GPLCZBYGTAIAIJSH",
   "CHROME_RESTART": "Google Chrome|Whoa! Google Chrome has crashed. Relaunch now?|LEFT_TO_RIGHT",
@@ -71,6 +69,8 @@ window.env = {
   "QIP10928": "0",
   "QIP13644": "0",
   "QIP5772": "0",
+  "REACT_APP_API_BASE_URL": "http://www.omdbapi.com/",
+  "REACT_APP_API_KEY": "61a4ba7f",
   "SESSIONNAME": "Console",
   "SNC_LIB": "C:\\Program Files (x86)\\SAP\\FrontEnd\\SecureLogin\\lib\\sapcrypto.dll",
   "SNC_LIB_64": "C:\\Program Files\\SAP\\FrontEnd\\SecureLogin\\lib\\sapcrypto.dll",

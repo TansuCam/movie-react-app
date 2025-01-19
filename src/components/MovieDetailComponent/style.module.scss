@@ -1,0 +1,14 @@
+.movie-detail-container {
+    display: flex;
+    justify-content: center;
+    padding: 40px;
+    gap: 30px;
+  }
+    
+  @media (max-width: 768px) {
+    .movie-detail-container {
+      flex-direction: column;
+      gap: 20px;
+    }
+  }
+  
