@@ -1,11 +1,27 @@
+// React
 import React from 'react';
-import styles from './style.module.scss';
+
+// Components
 import { Typography } from 'antd';
 
+// Styles
+import styles from './style.module.scss';
+
+// Types
+import { MovieDetails } from '../../types/movieTypes';
+
 interface MovieInfoProps {
-    movieDetail: any;
+    /**
+     * The detailed movie data to display.
+     * This object should contain various movie properties such as Title, Year, Genre, etc.
+     * 
+     * @type {MovieDetails}
+     * @required
+     */
+    movieDetail: MovieDetails;
 }
 
+// MovieInfo component
 const MovieInfo: React.FC<MovieInfoProps> = ({ movieDetail }) => {
     return (
         <div className={styles["movie-info"]}>

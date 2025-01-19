@@ -1,13 +1,25 @@
+// React
 import React, { ReactNode } from 'react';
+
+// Components
 import { Layout, Space } from 'antd';
+
+// Styles
 import styles from './style.module.scss';
 
 const { Header, Content, Footer } = Layout;
 
 interface LayoutProps {
+    /**
+     * The content to be displayed within the Layout component.
+     * 
+     * @type {ReactNode}
+     * @required
+     */
     children: ReactNode;
 }
 
+// Layout component 
 const LayoutComponent: React.FC<LayoutProps> = ({ children }) => {
     return (
         <Layout className={styles.layout}>

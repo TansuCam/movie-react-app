@@ -1,19 +1,42 @@
+// React
 import React, { useMemo } from 'react';
+
+// Components
 import { Spin, Table } from 'antd';
+
+// Styles
 import styles from './style.module.scss';
+
+// Redux
 import { useSelector } from 'react-redux';
+
+// React Router
 import { useNavigate } from 'react-router-dom';
+
+// Types
 import { Movie } from '../../types/movieTypes';
+
+// Assets
 import dummyImage from '../../images/dummy_image.jpg';
 
+// TableView component
 const TableView: React.FC = () => {
+    // Get movies and loading state from Redux store
     const { movies, isLoading } = useSelector((state: any) => state.movie);
+
+    // React Router hook to navigate between pages
     const navigate = useNavigate();
 
+    /**
+     * Handles row click event and navigates to the movie details page.
+     * 
+     * @param {Movie} record - The clicked movie record.
+     */
     const handleRowClick = (record: Movie) => {
         navigate(`/movie/${record.imdbID}`);
     };
 
+    // Define table columns
     const columns = useMemo(() => [
         {
             title: 'Poster',

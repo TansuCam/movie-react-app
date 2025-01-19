@@ -1,17 +1,39 @@
+// React
 import React from 'react';
-import { Card, Col, Empty, Flex, Row, Spin } from 'antd';
-import styles from './style.module.scss';
-import { Movie } from '../../types/movieTypes';
+
+// Components
+import { Card, Col, Empty, Row, Spin } from 'antd';
+
+// Utilities
 import { useSelector } from 'react-redux';
-import dummyImage from '../../images/dummy_image.jpg';
 import { useNavigate } from 'react-router-dom';
+
+// Styles
+import styles from './style.module.scss';
+
+// Types
+import { Movie } from '../../types/movieTypes';
+
+// Dummy Image
+import dummyImage from '../../images/dummy_image.jpg';
 
 const { Meta } = Card;
 
+// GridView component 
 const GridView: React.FC = () => {
+    // Redux state: Movies and loading status
     const { movies, isLoading } = useSelector((state: any) => state.movie);
+
+    // React Router navigate hook
     const navigate = useNavigate();
 
+    /**
+     * Handles row click event to navigate to the movie's detailed page.
+     * 
+     * @function handleRowClick
+     * @param {Movie} record - The movie record that was clicked.
+     * @returns {void}
+     */
     const handleRowClick = (record: Movie) => {
         navigate(`/movie/${record.imdbID}`);
     };
@@ -31,8 +53,7 @@ const GridView: React.FC = () => {
                                             src={film.Poster && film.Poster.startsWith('http') ?
                                                 film.Poster :
                                                 dummyImage}
-                                            style={{ height: 400 }
-                                            }
+                                            style={{ height: 400 }}
                                         />
                                     }
                                     onClick={() => handleRowClick(film)}
@@ -40,24 +61,24 @@ const GridView: React.FC = () => {
                                     <Meta
                                         title={film.Title}
                                         description={
-                                            <Flex vertical>
+                                            <div className={styles['movie-meta']}>
                                                 <span>Year: {film.Year}</span>
                                                 <span>Type: {film.Type}</span>
                                                 <span>IMDb ID: {film.imdbID}</span>
-                                            </Flex>
+                                            </div>
                                         }
                                     />
                                 </Card>
                             </Col>
                         ))}
                     </>
-                ) :
+                ) : (
                     <div className={styles['empty-container']}>
                         <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
                     </div>
-                }
+                )}
             </Row>
-        </Spin >
+        </Spin>
     );
 };
 
