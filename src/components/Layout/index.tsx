@@ -1,5 +1,6 @@
 // React
 import React, { ReactNode } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // Components
 import { Layout, Space } from 'antd';
@@ -21,9 +22,10 @@ interface LayoutProps {
 
 // Layout component 
 const LayoutComponent: React.FC<LayoutProps> = ({ children }) => {
+    const navigate = useNavigate();
     return (
         <Layout className={styles.layout}>
-            <Header className={styles.header}>
+            <Header className={styles.header} onClick={() => navigate("/")}>
                 <div className={styles.logo}>Movie Finder</div>
             </Header>
 

@@ -8,7 +8,7 @@ import "./styles.scss";
 
 // Components
 import LoadingSpinner from "./components/Loading";
-import NotFound from "./components/NotFound";
+import { NotFound } from "./components/NotFound";
 
 // Pages
 const Home = lazy(() => import("./pages/Home"));

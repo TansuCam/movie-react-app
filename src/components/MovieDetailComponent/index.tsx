@@ -10,6 +10,7 @@ import { fetchMovieDetails } from '../../services/movieAPI';
 // Components
 import MoviePoster from '../../components/MoviePoster';
 import MovieInfo from '../../components/MovieInfo';
+import { NotFoundMovieDetail } from '../NotFound';
 
 // Styles
 import styles from './style.module.scss';
@@ -22,6 +23,8 @@ import { debounce } from 'lodash';
 const MovieDetailComponent: React.FC = () => {
     // Fetching IMDb ID from URL parameters
     const { imdbID } = useParams<{ imdbID: string }>();
+
+    const [hasResponse, setHasResponse] = useState<boolean | null>(null)
 
     // Redux dispatch hook
     const dispatch = useDispatch();
@@ -46,6 +49,7 @@ const MovieDetailComponent: React.FC = () => {
         try {
             setIsLoadingDetail(true);
             const movieDetail = await fetchMovieDetails(imdbID);
+            setHasResponse(movieDetail?.Response === 'True')
             dispatch(setMovieDetails(movieDetail));
             setIsLoadingDetail(false);
         } catch (error) {
@@ -65,10 +69,18 @@ const MovieDetailComponent: React.FC = () => {
 
     return (
         <Spin spinning={isLoadingDetail}>
-            <div className={styles["movie-detail-container"]}>
-                <MoviePoster posterUrl={movieDetails?.Poster} title={movieDetails?.Title} />
-                <MovieInfo movieDetail={movieDetails} />
-            </div>
+            {hasResponse !== null &&
+                <>
+                    {!hasResponse ?
+                        <NotFoundMovieDetail />
+                        :
+                        <div className={styles["movie-detail-container"]}>
+                            <MoviePoster posterUrl={movieDetails?.Poster} title={movieDetails?.Title} />
+                            <MovieInfo movieDetail={movieDetails} />
+                        </div>
+                    }
+                </>
+            }
         </Spin>
     );
 };

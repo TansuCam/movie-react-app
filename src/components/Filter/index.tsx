@@ -12,6 +12,7 @@ import { AppstoreOutlined, UnorderedListOutlined } from '@ant-design/icons';
 
 // Utilities
 import { debounce } from 'lodash';
+import { handleKeyDownForNumbers } from '../../utils';
 
 // Styles
 import styles from './style.module.scss';
@@ -112,6 +113,8 @@ const Filters: React.FC = () => {
                         <Input
                             className={styles['search-input']}
                             placeholder="Enter year..."
+                            maxLength={4}
+                            onKeyDown={handleKeyDownForNumbers}
                         />
                     </Form.Item>
 
